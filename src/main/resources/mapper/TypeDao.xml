@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.luoben.myblog.dao.TypeDao">
+
+    <resultMap id="type" type="com.luoben.myblog.pojo.Type">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="blogNumByType" column="blogNUm"/>
+    </resultMap>
+
+    <select id="getAllTypeAndTotal" resultMap="type">
+        select count(b.id) as blogNUm , t.*
+        from t_type as t
+        left join t_blog as b on b.type_id=t.id
+        group by t.id
+        order by blogNUm desc
+    </select>
+
+</mapper>
